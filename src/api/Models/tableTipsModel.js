@@ -91,14 +91,14 @@ class TableTips {
 
     }
 
-    static getBestTipsWeek(param = 'NOW()', callback) {
-        db.query("SELECT * FROM `tabletips` WHERE WEEK(DATE_FORMAT(created_at, '%Y-%m-%d')) = WEEK(DATE_FORMAT(NOW(), '%Y-%m-%d')) ORDER BY `tips` DESC LIMIT 1", (err, tableTips) => {
-            if (err) {
-                console.error('Erreur ', err);
-            } else {
-                callback(tableTips.map((tips) => new TableTips(tips)))
-            }
-        })
-    }
+    // static getBestTipsWeek(param = 'NOW()', callback) {
+    //     db.query("SELECT * FROM `tabletips` WHERE WEEK(DATE_FORMAT(created_at, '%Y-%m-%d')) = WEEK(DATE_FORMAT(NOW(), '%Y-%m-%d')) ORDER BY `tips` DESC LIMIT 1", (err, tableTips) => {
+    //         if (err) {
+    //             console.error('Erreur ', err);
+    //         } else {
+    //             callback(tableTips.map((tips) => new TableTips(tips)))
+    //         }
+    //     })
+    // }
 }
 module.exports = TableTips

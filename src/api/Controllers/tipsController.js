@@ -25,8 +25,14 @@ exports.allTipsOfMonth = (req, res) => {
     })
 }
 
+// exports.tipsOfTheWeek = (req, res) => {
+//     tableTips.getBestTipsWeek((result) => {
+//         res.json(result);
+//     })
+// }
+
 exports.tipsOfTheWeek = (req, res) => {
-    tableTips.getBestTipsWeek((result) => {
+    tipsPayment.getBestWeekTipsPerMonthInActualYear((result) => {
         res.json(result);
     })
 }

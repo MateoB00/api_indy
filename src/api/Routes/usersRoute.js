@@ -3,7 +3,6 @@ module.exports = (server) => {
 
     server.route('/users')
         .get(userController.listAllUsers)
-        .post(userController.createUser)
     server.route('/users/active')
         .get(userController.listAllActive)
     server.route('/users/not_active')
