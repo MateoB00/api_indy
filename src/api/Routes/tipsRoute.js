@@ -11,4 +11,6 @@ module.exports = (server) => {
         .get(tipsController.allTipsOfMonth)
     server.route('/tips/week')
         .get(tipsController.tipsOfTheWeek)
+    server.route('/last_tips/user/:id')
+        .get(tipsController.lastTips)
 }
