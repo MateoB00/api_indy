@@ -18,20 +18,20 @@ exports.listAllNotActive = (req, res) => {
     })
 }
 
-exports.createUser = (req, res) => {
-    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, () => {
+exports.getOneUserById = (req, res) => {
+    User.getOneUserById(req.params.id, (result) => {
         res.json(result);
     })
 }
 
 exports.getUsersWithHisSolde = (req, res) => {
-    User.getUsersWithSolde((result) => {
+    User.getUsersWithHisSolde((result) => {
         res.json(result)
     })
 }
 
 exports.getUserWithHisSolde = (req, res) => {
-    User.getUserWithSolde((result) => {
+    User.getUserWithHisSolde((result) => {
         res.json(result)
     })
 }

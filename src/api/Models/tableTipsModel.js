@@ -79,24 +79,26 @@ class TableTips {
         })
     }
 
-    static getAllTipsOfMonth(callback) {
-        db.query("SELECT DATE_FORMAT(NOW(), '%Y-%m') AS month, SUM(`tips`) AS total_amount FROM `tabletips` WHERE DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')", (err, tableTips) => {
+    static getAllTipsPerMonth(date = 'NOW()', callback) {
+        db.query(`SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, SUM(tips) AS total_amount FROM tabletips GROUP BY month`, (err, tableTips) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
+                console.log(typeof (date))
                 callback(tableTips)
             }
         })
+
     }
 
-    static getBestTipsWeek(callback) {
-        db.query("SELECT * FROM `tabletips` WHERE WEEK(DATE_FORMAT(created_at, '%Y-%m-%d')) = WEEK(DATE_FORMAT(NOW(), '%Y-%m-%d')) ORDER BY `tips` DESC LIMIT 1", (err, tableTips) => {
-            if (err) {
-                console.error('Erreur ', err);
-            } else {
-                callback(tableTips.map((tips) => new TableTips(tips)))
-            }
-        })
-    }
+    // static getBestTipsWeek(param = 'NOW()', callback) {
+    //     db.query("SELECT * FROM `tabletips` WHERE WEEK(DATE_FORMAT(created_at, '%Y-%m-%d')) = WEEK(DATE_FORMAT(NOW(), '%Y-%m-%d')) ORDER BY `tips` DESC LIMIT 1", (err, tableTips) => {
+    //         if (err) {
+    //             console.error('Erreur ', err);
+    //         } else {
+    //             callback(tableTips.map((tips) => new TableTips(tips)))
+    //         }
+    //     })
+    // }
 }
 module.exports = TableTips
