@@ -14,13 +14,13 @@ exports.createTipsPayment = (req, res) => {
 }
 
 exports.listAllTipsByIdService = (req, res) => {
-    tableTips.allByIdService(req.body.id_service, (result) => {
+    tableTips.allByIdService(req.params.id_service, (result) => {
         res.json(result);
     })
 }
 
 exports.allTipsOfMonth = (req, res) => {
-    tableTips.getAllTipsPerMonth(date = req.body.date, (result) => {
+    tableTips.getAllTipsPerMonth(date = req.params.date, (result) => {
         res.json(result);
     })
 }
