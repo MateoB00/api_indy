@@ -36,3 +36,9 @@ exports.tipsOfTheWeek = (req, res) => {
         res.json(result);
     })
 }
+
+exports.lastTips = (req, res) => {
+    tipsPayment.getLastPaymentByUserId(req.params.id, (result) => {
+        res.json(result);
+    })
+}
