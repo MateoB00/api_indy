@@ -18,8 +18,8 @@ exports.listAllNotActive = (req, res) => {
     })
 }
 
-exports.createUser = (req, res) => {
-    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, () => {
+exports.getOneUserById = (req, res) => {
+    User.getOneUserById(req.params.id, (result) => {
         res.json(result);
     })
 }

@@ -63,5 +63,12 @@ class TipsPayment {
             }
         })
     }
+
+    static getBestWeekTipsPerMonthInActualYear(callback) {
+        db.query('WITH tips_per_day AS (SELECT DATE(created_at) AS day_start, SUM(amount) AS total_tips FROM tipspayments WHERE YEAR(created_at) = YEAR(NOW()) GROUP BY day_start), tips_per_week AS (SELECT DATE(DATE_SUB(day_start, INTERVAL WEEKDAY(day_start) DAY)) AS week_start, WEEK(day_start) AS week_number, day_start, total_tips, ROW_NUMBER() OVER (PARTITION BY DATE(DATE_SUB(day_start, INTERVAL WEEKDAY(day_start) DAY)) ORDER BY total_tips DESC) AS rank FROM tips_per_day) SELECT week_number, day_start AS day, total_tips FROM tips_per_week WHERE rank = 1 ORDER BY week_number',
+        function (err, results) {
+            callback(results.map((result) => new TipsPayment(result)))
+        })
+    }
 }
 module.exports = TipsPayment
