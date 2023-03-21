@@ -8,4 +8,6 @@ module.exports = (server) => {
         .get(userController.listAllActive)
     server.route('/users/not_active')
         .get(userController.listAllNotActive)
+    server.route('/user/:id')
+        .get(userController.getOneUserById)
 }

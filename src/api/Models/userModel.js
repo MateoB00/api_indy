@@ -125,5 +125,22 @@ class User {
             }
         })
     }
+
+    static setNotActive(id, callback) {
+        db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, results) => {
+            if (err) {
+                console.error('Erreur ', err);
+            } else {
+                console.log('Utilisateur viré');
+            }
+        })
+    }
+
+    static getOneUserById(id, results) {
+        db.query('SELECT * FROM users WHERE id = ?', [id], 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
 }
 module.exports = User
