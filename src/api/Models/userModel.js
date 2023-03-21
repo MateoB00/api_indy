@@ -142,5 +142,19 @@ class User {
             callback(users.map((user) => new User(user)))
         })
     }
+    
+    static getUsersWithHisSolde(callback){
+        db.query('SELECT users.*, SUM(tipspayments.amount) AS soldeTotal FROM users INNER JOIN tipspayments ON users.id = tipspayments.id_user GROUP BY users.id', 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
+
+    static getUserWithHisSolde(user_id, callback){
+        db.query('SELECT users.*, SUM(tipspayments.amount) AS soldeTotal FROM users INNER JOIN tipspayments ON users.id = tipspayments.id_user WHERE users.id = ?;', [user_id], 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
 }
 module.exports = User
