@@ -125,5 +125,36 @@ class User {
             }
         })
     }
+
+    static setNotActive(id, callback) {
+        db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, results) => {
+            if (err) {
+                console.error('Erreur ', err);
+            } else {
+                console.log('Utilisateur viré');
+            }
+        })
+    }
+
+    static getOneUserById(id, results) {
+        db.query('SELECT * FROM users WHERE id = ?', [id], 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
+
+    static getUsersWithHisSolde(callback){
+        db.query('SELECT users.*, SUM(tipspayments.amount) AS soldeTotal FROM users INNER JOIN tipspayments ON users.id = tipspayments.id_user GROUP BY users.id', 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
+
+    static getUserWithHisSolde(user_id, callback){
+        db.query('SELECT users.*, SUM(tipspayments.amount) AS soldeTotal FROM users INNER JOIN tipspayments ON users.id = tipspayments.id_user WHERE users.id = ?;', [user_id], 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
+    }
 }
 module.exports = User

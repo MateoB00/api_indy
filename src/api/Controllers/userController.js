@@ -23,3 +23,15 @@ exports.createUser = (req, res) => {
         res.json(result);
     })
 }
+
+exports.getUsersWithHisSolde = (req, res) => {
+    User.getUsersWithSolde((result) => {
+        res.json(result)
+    })
+}
+
+exports.getUserWithHisSolde = (req, res) => {
+    User.getUserWithSolde((result) => {
+        res.json(result)
+    })
+}
