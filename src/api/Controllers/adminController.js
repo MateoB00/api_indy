@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const jwtMiddleware = require("../Middlewares/jwtMiddleware");
 
 exports.deleteUser = (req, res) => {
     User.delete(req.params.id, (result) => {
@@ -33,6 +34,6 @@ exports.createUser = (req, res) => {
 exports.checkAdmin = (req, res) => {
     User.checkLoginAdmin(req.body.code_admin, (result) => {
         console.log(result)
-        res.json(result);
+        res.json(result)
     })
 }

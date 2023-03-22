@@ -25,13 +25,13 @@ exports.getOneUserById = (req, res) => {
 }
 
 exports.getUsersWithHisSolde = (req, res) => {
-    User.getUsersWithSolde((result) => {
+    User.getUsersWithHisSolde((result) => {
         res.json(result)
     })
 }
 
 exports.getUserWithHisSolde = (req, res) => {
-    User.getUserWithSolde((result) => {
+    User.getUserWithHisSolde((result) => {
         res.json(result)
     })
 }
