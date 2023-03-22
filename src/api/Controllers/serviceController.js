@@ -24,3 +24,9 @@ exports.allServiceUserByIdService = (req, res) => {
         res.json(result);
     })
 }
+
+exports.addUsersInService = (req, res) => {
+    serviceUser.createForAservice(req.body.id_service, req.body.ids_user, (result) => {
+        res.json(result);
+    })
+}
