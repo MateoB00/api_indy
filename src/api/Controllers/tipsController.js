@@ -37,3 +37,9 @@ exports.lastTips = (req, res) => {
         res.json(result);
     })
 }
+
+exports.createAndRedistributeTips = (req, res) => {
+    tipsPayment.createAndRedistributeTips(req.body.id_service, (result) => {
+        res.json(result);
+    })
+}

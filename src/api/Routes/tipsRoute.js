@@ -5,6 +5,8 @@ module.exports = (server) => {
         .post(tipsController.createTips)
     server.route('/tips/payment')
         .post(tipsController.createTipsPayment)
+    server.route('/tips/redistibute')
+        .post(tipsController.createAndRedistributeTips)
     server.route('/tips/service/:id')
         .get(tipsController.listAllTipsByIdService)
     server.route('/tips/month/:date')
