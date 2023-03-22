@@ -1,4 +1,5 @@
 let db = require('../config/database');
+let jwt = require('jsonwebtoken')
 // let moment = require('moment');
 // moment.locale('fr');
 
@@ -134,7 +135,7 @@ class User {
         })
     }
 
-    static setNotActive(id, callback) {
+    static setNotActive(id) {
         db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, results) => {
             if (err) {
                 console.error('Erreur ', err);
@@ -144,7 +145,7 @@ class User {
         })
     }
 
-    static getOneUserById(id, results) {
+    static getOneUserById(id) {
         db.query('SELECT * FROM users WHERE id = ?', [id], 
         function (err, users) {
             callback(users.map((user) => new User(user)))
@@ -163,6 +164,21 @@ class User {
         function (err, users) {
             callback(users.map((user) => new User(user)))
         })
+    }
+
+    static checkLoginAdmin(code_admin, callback) {
+        db.query('SELECT EXISTS(SELECT * FROM users WHERE code_admin = ?)', [parseInt(code_admin)], 
+            function (err, admin) {
+                const value = Object.values(admin[0])[0]
+                if (value === 1) {
+                    const token = jwt.sign({ code_admin }, process.env.JWT_KEY, { expiresIn: "1h" });
+
+                    callback(token)
+                } else {
+                    return null
+                }
+            }
+         )
     }
 }
 module.exports = User

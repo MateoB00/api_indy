@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 exports.verifyToken = (req, res, next) => {
     const jwtKey = process.env.JWT_KEY;
-    const token = req.body.token || req.query.token || req.headers["authorization"] ||  req.headers["x-access-token"];
+    const token = req.headers["authorization"];
 
     if (token !== undefined) {
         jwt.verify(token, jwtKey, (error, payload) => {

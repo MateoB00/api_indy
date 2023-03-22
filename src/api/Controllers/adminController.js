@@ -29,3 +29,10 @@ exports.createUser = (req, res) => {
         res.json(result);
     })
 }
+
+exports.checkAdmin = (req, res) => {
+    User.checkLoginAdmin(req.body.code_admin, (result) => {
+        console.log(result)
+        res.json(result);
+    })
+}
