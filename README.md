@@ -37,6 +37,8 @@ swagger-ui-express
 
 docker
 
+esLint
+
 # Installation
 
 Pour installer et exécuter API_indy sur votre machine locale, vous pouvez suivre les étapes suivantes :
