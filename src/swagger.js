@@ -94,6 +94,25 @@
  *         description: Erreur de serveur lors du set not_active d'un user.
  */
 
+/**
+ * @swagger
+ * /check_admin:
+ *   get:
+ *     summary: check if user is admin.
+ *     description: check if user is admin.
+ * 
+ *     responses:
+ *       200:
+ *         description: check if user is admin.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ * 
+ *       500:
+ *         description: Erreur de serveur lors du check admin.
+ */
+
 /* SWAGGER USER */
 /**
  * @swagger
@@ -215,6 +234,30 @@
 /**
  * @swagger
  * paths:
+ *  /tips/redistribute:
+ *   post:
+ *    summary: Redistribution des tips par service
+ *    parameters:
+ *     - name: id_service
+ *       in: body
+ *       description: ID du service
+ *       required: true
+ *       schema:
+ *          type: object
+ *          properties:
+ *             id_service:
+ *              type: integer
+ *              description: ID du service
+ *              example: 1
+ * 
+ *    responses:
+ *     '200':
+ *         description: Redistribution des tips par service
+ */
+
+/**
+ * @swagger
+ * paths:
  *  /tips/service/{id}:
  *      get:
  *        description: Get tips by service_id
@@ -254,6 +297,24 @@
  *  /tips/week:
  *  get:
  *      description: Get the best tips grouped by week
+ *      responses:
+ *          '200':
+ *              description: A successful response
+ *          '500':
+ *             description: Erreur de serveur lors de la récupération des users active
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /last_tips/user/{id}:
+ *  get:
+ *      description: Get last tips of user with date
+ *      parameters:
+ *          - in: path
+ *            name: user_id
+ *            type: integer
+ *            required: true
  *      responses:
  *          '200':
  *              description: A successful response
@@ -346,7 +407,7 @@
  *    get:
  *      description: Get all services user by id service
  *      parameters:
- *         - in: path
+ *         - in: body
  *           name: id
  *           type: integer
  *           required: true
