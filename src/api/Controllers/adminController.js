@@ -31,9 +31,9 @@ exports.createUser = (req, res) => {
     })
 }
 
-exports.loginAdmin = (req, res) => {
-    User.loginAdmin(req.body.code_admin, (result) => {
-        const token = jwtMiddleware.sign({ result }, process.env.JWT_KEY)
-        res.json({ token });
+exports.checkAdmin = (req, res) => {
+    User.checkLoginAdmin(req.body.code_admin, (result) => {
+        console.log(result)
+        res.json(result)
     })
 }

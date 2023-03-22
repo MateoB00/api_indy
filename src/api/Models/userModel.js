@@ -1,4 +1,5 @@
 let db = require('../config/database');
+let jwt = require('jsonwebtoken')
 // let moment = require('moment');
 // moment.locale('fr');
 
@@ -13,6 +14,7 @@ class User {
             this._lastname = null
             this._status = null
             this._active = null
+            this._code_admin = null
         } else {
             this._id = result.id
             this._created_at = result.created_at
@@ -21,6 +23,7 @@ class User {
             this._lastname = result.lastname
             this._status = result.status
             this._active = result.active
+            this._code_admin = result.code_admin || null
         }
     }
 
@@ -44,6 +47,9 @@ class User {
     }
     get active() {
         return this._active
+    }
+    get code_admin() {
+        return this._code_admin
     }
 
 
@@ -69,6 +75,9 @@ class User {
     }
     set active(res) {
         this._active = res
+    }
+    set code_admin(res) {
+        this._code_admin = res
     }
 
     static all(callback) {
@@ -126,7 +135,7 @@ class User {
         })
     }
 
-    static setNotActive(id, callback) {
+    static setNotActive(id) {
         db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, results) => {
             if (err) {
                 console.error('Erreur ', err);
@@ -136,11 +145,11 @@ class User {
         })
     }
 
-    static getOneUserById(id, results) {
-        db.query('SELECT * FROM users WHERE id = ?', [id],
-            function (err, users) {
-                callback(users.map((user) => new User(user)))
-            })
+    static getOneUserById(id) {
+        db.query('SELECT * FROM users WHERE id = ?', [id], 
+        function (err, users) {
+            callback(users.map((user) => new User(user)))
+        })
     }
 
     static getUsersWithHisSolde(callback) {
@@ -161,6 +170,21 @@ class User {
             function (err, users) {
                 callback(users.map((user) => new User(user)))
             })
+    }
+
+    static checkLoginAdmin(code_admin, callback) {
+        db.query('SELECT EXISTS(SELECT * FROM users WHERE code_admin = ?)', [parseInt(code_admin)], 
+            function (err, admin) {
+                const value = Object.values(admin[0])[0]
+                if (value === 1) {
+                    const token = jwt.sign({ code_admin }, process.env.JWT_KEY, { expiresIn: "1h" });
+
+                    callback(token)
+                } else {
+                    return null
+                }
+            }
+         )
     }
 }
 module.exports = User
