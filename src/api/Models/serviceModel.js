@@ -60,14 +60,18 @@ class Service {
                 callback(datas.map((d) => new Service(d)))
             })
     }
-    static create(shiftType, shiftClosed, callback) {
-        db.query('INSERT INTO services (shiftType, shiftClosed) VALUES (?,?)', [shiftType, shiftClosed], (err, res) => {
+    static create(shiftType) {
+        db.query('INSERT INTO services (shiftType, shiftClosed) VALUES (?,false)', [shiftType], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
-                console.log('Nouveau service enregistré');
+                console.log('Nouveau service enregistré et en cours');
             }
         })
+    }
+
+    static end(id_service){
+        db.query('UPDATE services SET shiftClosed = 1 WHERE id = ?', [id_service])
     }
 }
 module.exports = Service

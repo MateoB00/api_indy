@@ -2,13 +2,13 @@ const service = require('../models/serviceModel');
 const serviceUser = require('../models/serviceUserModel');
 
 exports.createService = (req, res) => {
-    service.create(req.body.shiftType, req.body.shiftClosed, () => {
+    service.create(req.body.shiftType, req.body.shiftClosed, (result) => {
         res.json(result);
     })
 }
 
 exports.createServiceUser = (req, res) => {
-    serviceUser.create(req.body.id_service, req.body.id_user, () => {
+    serviceUser.create(req.body.id_service, req.body.id_user, (result) => {
         res.json(result);
     })
 }

@@ -5,7 +5,7 @@ exports.verifyToken = (req, res, next) => {
     const token = req.headers["authorization"];
 
     if (token !== undefined) {
-        jwt.verify(token, jwtKey, (error, payload) => {
+        jwt.verify(token, jwtKey, (error) => {
             if(error) {
                 console.error(error);
                 res.status(403)

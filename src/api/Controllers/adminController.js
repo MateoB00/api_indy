@@ -1,5 +1,4 @@
 const User = require('../models/userModel');
-const jwtMiddleware = require("../Middlewares/jwtMiddleware");
 
 exports.deleteUser = (req, res) => {
     User.delete(req.params.id, (result) => {
@@ -8,25 +7,25 @@ exports.deleteUser = (req, res) => {
 }
 
 exports.setNotActive = (req, res) => {
-    User.setNotActive(req.params.id, () => {
+    User.setNotActive(req.params.id, (result) => {
         res.json(result);
     })
 }
 
 exports.createUser = (req, res) => {
-    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, () => {
+    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, (result) => {
         res.json(result);
     })
 }
 
 exports.setNotActive = (req, res) => {
-    User.setNotActive(req.body.id, () => {
+    User.setNotActive(req.body.id, (result) => {
         res.json(result);
     })
 }
 
 exports.createUser = (req, res) => {
-    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, () => {
+    User.create(req.body.firstname, req.body.lastname, req.body.status, req.body.active, (result) => {
         res.json(result);
     })
 }

@@ -63,7 +63,7 @@ class TableTips {
         this._id_service = res
     }
 
-    static create(tips, id_restaurantTable, id_service, callback) {
+    static create(tips, id_restaurantTable, id_service) {
         db.query('INSERT INTO tabletips (tips, id_restaurantTable, id_service) VALUES (?,?,?)', [tips, id_restaurantTable, id_service], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
