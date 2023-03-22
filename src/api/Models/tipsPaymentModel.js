@@ -54,7 +54,7 @@ class TipsPayment {
         this._id_user = res
     }
 
-    static create(amount, id_user, callback) {
+    static create(amount, id_user) {
         db.query('INSERT INTO tipspayments (amount, id_user) VALUES (?,?)', [amount, id_user], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);

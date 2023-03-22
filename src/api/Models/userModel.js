@@ -115,8 +115,8 @@ class User {
             })
     }
 
-    static create(firstname, lastname, status, active, results) {
-        db.query('INSERT INTO users (firstname, lastname, status, active) VALUES (?,?,?,?)', [firstname, lastname, status, active], (err, results) => {
+    static create(firstname, lastname, status, active) {
+        db.query('INSERT INTO users (firstname, lastname, status, active) VALUES (?,?,?,?)', [firstname, lastname, status, active], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
@@ -125,8 +125,8 @@ class User {
         })
     }
 
-    static delete(id, results) {
-        db.query('DELETE FROM users WHERE id = ?', [id], (err, results) => {
+    static delete(id) {
+        db.query('DELETE FROM users WHERE id = ?', [id], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
@@ -136,7 +136,7 @@ class User {
     }
 
     static setNotActive(id) {
-        db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, results) => {
+        db.query('UPDATE `users` SET `active`= 0 WHERE id = ?', [id], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {
@@ -145,7 +145,7 @@ class User {
         })
     }
 
-    static getOneUserById(id) {
+    static getOneUserById(id, callback) {
         db.query('SELECT * FROM users WHERE id = ?', [id], 
         function (err, users) {
             callback(users.map((user) => new User(user)))

@@ -30,8 +30,13 @@ class ServiceUser {
         this._id_user = res
     }
 
-    static create(id_service, id_user, callback) {
-        db.query('INSERT INTO serviceusers (id_service, id_user) VALUES (?,?)', [id_service, id_user], (err, res) => {
+    static create(id_service, ids_user = []) {
+        let values = '';
+        for (let i = 0; i < ids_user.length; i++) {
+            let v = `(${id_service}, ${ids_user[i]}),`;
+            values = v.slice(0, -1);
+        }
+        db.query(`INSERT INTO serviceusers (id_service, id_user) VALUES ${values}`, (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
             } else {

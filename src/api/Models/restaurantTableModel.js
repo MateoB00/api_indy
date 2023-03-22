@@ -46,7 +46,7 @@ class RestaurantTable {
         this._name = res
     }
 
-    static create(name, callback) {
+    static create(name) {
         db.query('INSERT INTO restaurantTable (name) VALUES (?)', [name], (err, res) => {
             if (err) {
                 console.error('Erreur ', err);
